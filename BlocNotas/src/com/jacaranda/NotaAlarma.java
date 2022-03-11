@@ -55,4 +55,7 @@ public class NotaAlarma extends Nota implements Activable{
 				+ activado + "]";
 	}
 	
+	
+	
+	
 }
