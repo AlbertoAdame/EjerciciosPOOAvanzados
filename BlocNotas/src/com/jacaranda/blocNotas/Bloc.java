@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import com.jacaranda.nota.Nota;
 import com.jacaranda.nota.NotaAlarma;
 import com.jacaranda.nota.NotaAlarmaException;
@@ -26,33 +28,31 @@ public class Bloc {
 
 	public void anadirNota(String texto) throws BlocException {
 		if (numNotas == NUMERO_NOTAS_MAXIMA)
-			throw new BlocException("No se pueden introducir más notas.");
+			throw new BlocException("No se pueden introducir mï¿½s notas.");
 
 		notas[numNotas++] = new Nota(texto);
 
 	}
-	
-	public void anadirNotaAlarma(String texto, boolean activado) throws BlocException, NotaAlarmaException {
+
+	public void anadirNota(String texto, boolean activado) throws BlocException, NotaAlarmaException {
 		if (numNotas == NUMERO_NOTAS_MAXIMA)
-			throw new BlocException("No se pueden introducir más notas.");
-		
-		notas[numNotas++]= new NotaAlarma(texto, activado);
+			throw new BlocException("No se pueden introducir mï¿½s notas.");
+
+		notas[numNotas++] = new NotaAlarma(texto, activado);
 	}
-	
-	public void anadirNotaAlarma(String texto, int minutos) throws BlocException, NotaAlarmaException {
+
+	public void anadirNota(String texto, int minutos) throws BlocException, NotaAlarmaException {
 		if (numNotas == NUMERO_NOTAS_MAXIMA)
-			throw new BlocException("No se pueden introducir más notas.");
-		
-		notas[numNotas++]= new NotaAlarma(texto, minutos);
+			throw new BlocException("No se pueden introducir mï¿½s notas.");
+
+		notas[numNotas++] = new NotaAlarma(texto, minutos);
 	}
-	
 
 	public void borrarNota(int posicion) throws BlocException {
-		if (posicion > numNotas) {
-			throw new BlocException("La posicion introducida no es válida.");
+		if (posicion >= numNotas || posicion < 0) {
+			throw new BlocException("La posicion introducida no es vï¿½lida.");
 		}
-		notas[posicion] = null;
-		for (int i = 0; i < numNotas; i++) {
+		for (int i = posicion; i < numNotas - 1; i++) {
 			notas[i] = notas[i + 1];
 		}
 		numNotas--;
@@ -105,7 +105,7 @@ public class Bloc {
 
 	@Override
 	public String toString() {
-		StringBuilder resultado = new StringBuilder(this.nombre+"\n");
+		StringBuilder resultado = new StringBuilder(this.nombre + "\n");
 		for (int i = 0; i < numNotas; i++) {
 			resultado.append(notas[i].toString() + "\n");
 		}
@@ -130,8 +130,24 @@ public class Bloc {
 		return Objects.equals(nombre, other.nombre);
 	}
 
-	public void ordenaBloc() {
-		Arrays.sort(this.notas);
+//	public void ordenaBloc() {
+//		int[] arrayAux;
+//		Arrays.sort(arrayAux);
+//	}
+
+	public String arrayAux() {
+		Nota[] arrayAux = new Nota[numNotas];
+		for (int i = 0; i < numNotas; i++)
+			arrayAux[i] = notas[i];
+
+		Arrays.sort(arrayAux);
+		StringBuilder resultado = new StringBuilder("Array ordenado");
+		for (int i = 0; i < numNotas; i++) {
+			resultado.append(arrayAux[i] + "\n");
+		}
+		return resultado.toString();
 	}
+
+	
 
 }

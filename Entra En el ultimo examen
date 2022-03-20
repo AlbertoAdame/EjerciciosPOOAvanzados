@@ -1,0 +1,8 @@
+recoorre array, y saber si está lleno, y recorrer hasta cierto indice
+gestionar el array moverlo
+saber clases abstractas, protegidas...
+saber enumerados, excepciones, StringBuilder
+nos van a dar UML, fijarse bien en que me piden, y no cambiar nombres
+
+en el ejercicio libro hay que hacer un try catch por si los enumerados no son los que piden
+crear una clase libreria con un array

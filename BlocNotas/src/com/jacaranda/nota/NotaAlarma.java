@@ -11,10 +11,7 @@ public class NotaAlarma extends Nota implements Activable{
 	
 	public NotaAlarma(String texto, Boolean activado) throws NotaAlarmaException {
 		super(texto);
-		this.fechaAlarma = LocalDateTime.now();
-		if (this.fechaAlarma.isBefore(fechaCreacion)) {
-			throw new NotaAlarmaException("La fecha alarma no puede ser anterior a la fecha de creaci�n.");
-		}
+		this.setFechaAlarma(LocalDateTime.now());
 		this.minutosRepetir = MINUTOS_REPETIR_POR_DEFECTO;
 		this.activado = activado;
 	}

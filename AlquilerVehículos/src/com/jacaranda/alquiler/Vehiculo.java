@@ -14,7 +14,7 @@ public class Vehiculo {
 	public Vehiculo(String matricula, String gama, LocalDate fechaSalida) throws VehiculoException {
 		super();
 		this.matricula = matricula;
-		this.gama = GamaEnumerado.valueOf(gama.toUpperCase());
+		this.setGama(gama);
 		this.fechaEntrada = LocalDate.now();
 		if (fechaSalida != null) {
 			if (fechaSalida.isBefore(this.fechaEntrada))

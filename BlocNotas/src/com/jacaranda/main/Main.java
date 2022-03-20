@@ -1,5 +1,6 @@
 package com.jacaranda.main;
 
+
 import java.util.Scanner;
 
 import com.jacaranda.blocNotas.Bloc;
@@ -21,11 +22,13 @@ public class Main {
 		NotaAlarma na= new NotaAlarma("Prueba", false);
 		b.anadirNota("Hola");
 		b.anadirNota("Segunda");
-//		b.ordenaBloc();//No he sabido crear el array Auxiliar en este ejemplo
 		System.out.println(b);
-		b.anadirNotaAlarma("Despertarme", true);// no se como poner para que me lea la fecha ahí, he tenido que quitar
+		b.arrayAux();//No he sabido crear el array Auxiliar en este ejemplo
+		System.out.println("Nuevo "+b);
+		
+		b.anadirNota("Despertarme", true);// no se como poner para que me lea la fecha ahï¿½, he tenido que quitar
 												// el localDateTime
-		b.anadirNotaAlarma("Acostarme", 8);
+		b.anadirNota("Acostarme", 8);
 		System.out.println(b);
 		System.out.println(n.isEmpty());
 		System.out.println(n.isCreadoAnterior(n));

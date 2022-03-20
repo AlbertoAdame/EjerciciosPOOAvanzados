@@ -2,7 +2,7 @@ package com.jacaranda.alquiler;
 
 public enum CarburanteEnumerado {
 	
-	GASOLINA(3.5), GASOIL(2);
+	GASOIL(3.5), DIESEL(2);
 		
 	private double precio;
 
