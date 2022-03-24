@@ -13,9 +13,9 @@ public abstract class Publicacion implements Comparable<Publicacion>, Valorable 
 	private static int codigoSiguiente=1;
 	private Usuario usuario;
 	
-	public Publicacion(String texto, Usuario usuario) {
+	public Publicacion(String texto, Usuario usuario) throws PublicacionException {
 		super();
-		this.texto = texto;
+		setTexto(texto);
 		this.fechaCreacion = LocalDateTime.now();
 		this.valoracion = 0;
 		this.codigo = codigoSiguiente++;
@@ -55,13 +55,13 @@ public abstract class Publicacion implements Comparable<Publicacion>, Valorable 
 		return valoracion;
 	}
 
-	public boolean valorar(String texto) {
+	public boolean valorar(String texto) throws PublicacionException {
 		boolean resultado = false;
 		try {
-			this.valoracion = Valoraciones.valueOf(texto.toUpperCase()).getValoracion();
+			this.valoracion += Valoraciones.valueOf(texto.toUpperCase()).getValoracion();//se me pasÛ el signo "+"
 			resultado = true;
 		} catch (Exception e) {
-			System.out.println("Valoraci√≥n incorrecta.");
+			throw new PublicacionException("Valoraci√≥n incorrecta.");
 		}
 		return resultado;
 
@@ -72,33 +72,34 @@ public abstract class Publicacion implements Comparable<Publicacion>, Valorable 
 		return codigo;
 	}
 	
-	public String getLoginUsuario() {
-		return this.usuario.getLogin();
+	public String getLoginUsuario() {//faltaba comprobar si es null
+		String resultado = null;
+		if (this.usuario!=null)
+			resultado=this.usuario.getLogin();
+		return resultado;
 		
 	}
 
 	@Override
 	public String toString() {
-		return "Publicacion: " + texto + "\n Realizado por: " + usuario.getLogin() + "\n Valoraci√≥n=" + valoracion
-				+ "\n Fecha de publicacion=" + fechaCreacion + "\n";
+		return "Publicacion: " + texto + "\nRealizado por: " + usuario.getLogin() + "\nValoraci√≥n=" + valoracion
+				+ "\nFecha de publicacion=" + fechaCreacion + "\n";//quitaremos el espacio detr·s del "\n" para que quede m·s limpio
 	}
 
-	public int compareTo(Publicacion other) {
-		int resultado =0;
-		boolean orden=false;
-		if (this.valoracion<other.valoracion)
-			resultado = -1;
-		if (resultado==0)
-			orden = this.fechaCreacion.isBefore(other.getFechaCreacion());
-		if(orden==true)
-			resultado = -1;
-		else
-			resultado= 1;
+	public int compareTo(Publicacion other) {//este mÈtodo estaba mal, era mucho m·s sencillo de lo que lo planteÈ
+		int resultado=-1;
+		if (other != null)
+				resultado= this.valoracion - other.valoracion;
+		if(resultado==0)
+			resultado=this.fechaCreacion.compareTo(other.fechaCreacion);
 		return resultado;
 	}
 	
-	public boolean isAnterior(Publicacion other) {
-		return this.fechaCreacion.isBefore(other.getFechaCreacion());
+	public boolean isAnterior(Publicacion other) {//faltaba comprobar si es null
+		boolean resultado= false;
+		if(other != null && this.fechaCreacion.isBefore(other.getFechaCreacion()))
+			resultado = true;
+		return resultado;
 	}
 	
 	

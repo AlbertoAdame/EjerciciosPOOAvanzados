@@ -7,7 +7,7 @@ public class Post extends Publicacion {
 	private int numeroLecturas;
 	private String tema;
 
-	public Post(String texto, Usuario usuario, String tema) {
+	public Post(String texto, Usuario usuario, String tema) throws PublicacionException {
 		super(texto, usuario);
 		this.numeroLecturas = 0;
 		this.tema = tema;
@@ -23,14 +23,14 @@ public class Post extends Publicacion {
 
 	}
 
-	public boolean valorar(String texto) {
+	public boolean valorar(String texto) throws PublicacionException {//en "Valoraciones.valueOf" le he puesto un parentesis m·s, aunque no sÈ si cambia algo, y el m·s
 		boolean resultado = false;
 		try {
-			this.valoracion = Valoraciones.valueOf(texto.toUpperCase()).getValoracion();
+			this.valoracion += (Valoraciones.valueOf(texto.toUpperCase())).getValoracion();
 			resultado = true;
 			numeroLecturas++;
 		} catch (Exception e) {
-			System.out.println("Valoraci√≥n incorrecta.");
+			throw new PublicacionException("Valoraci√≥n incorrecta.");
 		}
 		return resultado;
 

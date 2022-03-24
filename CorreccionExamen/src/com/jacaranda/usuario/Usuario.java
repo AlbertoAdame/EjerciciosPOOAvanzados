@@ -16,17 +16,21 @@ public class Usuario {
 		return login;
 	}
 
-	public boolean setPass(String pass, String oldPass) {//fallo en el pass, que es this.pass
+	public boolean setPass(String pass, String oldPass) {
 		boolean resultado = false;
-		if (pass.equals(oldPass)) {
-			this.pass = pass;
-			resultado = true;
+		if ( oldPass != null)//Falta la excepción para los nulos
+			if (this.pass.equals(oldPass)) {
+				this.pass = pass;//aquí se me pasó el this.
+				resultado = true;
 		}
 		return resultado;
 	}
 	
-	public boolean checkPass(String contrasenia) {
-		return this.pass.equals(contrasenia);
+	public boolean checkPass(String contrasenia) {//aqui falta la excepcion para los nulos aunque no la pidiera
+		boolean resultado=false;
+		if (contrasenia !=null && this.pass.equals(contrasenia))
+			resultado = true;
+		return resultado;
 	}
 
 	@Override
