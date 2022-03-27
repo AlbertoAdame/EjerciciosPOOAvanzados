@@ -26,9 +26,8 @@ public class Post extends Publicacion {
 	public boolean valorar(String texto) throws PublicacionException {//en "Valoraciones.valueOf" le he puesto un parentesis más, aunque no sé si cambia algo, y el más
 		boolean resultado = false;
 		try {
-			this.valoracion += (Valoraciones.valueOf(texto.toUpperCase())).getValoracion();
-			resultado = true;
-			numeroLecturas++;
+			resultado =super.valorar(texto);//En este caso si podremos usar el del padre pq no hay que modificar nada en su funcionamiento.
+			
 		} catch (Exception e) {
 			throw new PublicacionException("ValoraciÃ³n incorrecta.");
 		}

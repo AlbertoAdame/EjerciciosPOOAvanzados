@@ -64,8 +64,10 @@ public class MemoryStorage {
 			throw new MemoryStorageException("Este usuario no existe.");
 		int posicion = posicionUsuario(login);
 		try {
-			publicaciones[numPublicacionesActuales++] = new Tweet(texto, usuarios[posicion]);
-			this.numPublicacionesActuales++;
+			if (this.numPublicacionesActuales < NUM_MAXIMO_PUBLICACIONES) {
+				publicaciones[numPublicacionesActuales++] = new Tweet(texto, usuarios[posicion]);
+				this.numPublicacionesActuales++;
+			}
 		} catch (Exception e) {
 			throw new MemoryStorageException(e.getLocalizedMessage());
 		}
@@ -78,7 +80,9 @@ public class MemoryStorage {
 			throw new MemoryStorageException("Este usuario no existe.");
 		int posicion = posicionUsuario(login);
 		try {
-			publicaciones[numPublicacionesActuales++] = new Post(texto, usuarios[posicion], tema);
+			if (this.numPublicacionesActuales < NUM_MAXIMO_PUBLICACIONES) {
+				publicaciones[numPublicacionesActuales++] = new Post(texto, usuarios[posicion], tema);
+			}
 
 		} catch (Exception e) {
 			throw new MemoryStorageException(e.getLocalizedMessage());
@@ -92,7 +96,9 @@ public class MemoryStorage {
 			throw new MemoryStorageException("Este usuario no existe.");
 		int posicion = posicionUsuario(login);
 		try {
-			publicaciones[numPublicacionesActuales++] = new Recomendacion(texto, usuarios[posicion], estrellas);
+			if (this.numPublicacionesActuales < NUM_MAXIMO_PUBLICACIONES) {
+				publicaciones[numPublicacionesActuales++] = new Recomendacion(texto, usuarios[posicion], estrellas);
+			}
 		} catch (Exception e) {
 			throw new MemoryStorageException(e.getLocalizedMessage());
 		}
